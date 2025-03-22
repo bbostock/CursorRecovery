@@ -40,7 +40,13 @@ This script scans the `~/Library/Application Support/Cursor/User/History/` folde
 - Compare files with your current project.
 - Recover or merge as needed.
 - Repeat the process, working backwards to retrieve the last good version of each file.
+---
 
+After running **Step 1**, you'll have your Cursor history neatly organized into timestamped folders for manual comparison.
+
+🕵️ **Don't remember the date/time of your last good save?**
+
+➡️ Run **Steps 2–4** to extract and inspect the AI conversation history. This will help you identify when your project started going awry and guide which timestamped folder to begin recovery from.
 ---
 
 ### 🧪 Step 2: Extract Full AI Interaction Blob
