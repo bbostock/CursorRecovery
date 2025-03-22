@@ -1,7 +1,7 @@
 # 🧠 CursorRecovery
 
-**Recover lost code history from [Cursor](https://www.cursor.so) even when your current project has been corrupted.**  
-This toolkit helps you extract and recover previous file versions using Cursor's local history and AI interaction data.
+**Recover lost code / history from [Cursor](https://www.cursor.so) even when your current chat has been corrupted. Typically Cursor crashes when you try and go back in time through your chat **  
+This toolkit helps you extract and recover previous file versions and chat history using Cursor's local history and AI interaction database.
 
 ---
 
