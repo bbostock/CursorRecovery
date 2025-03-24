@@ -1,116 +1,71 @@
-# 🧠 CursorRecovery
+# Cursor Recovery Tool 🔄
 
-**Recover lost code / history from [Cursor](https://www.cursor.so) even when your current chat has been corrupted. Typically Cursor crashes when you try and go back in time through your chat **  
-This toolkit helps you extract and recover previous file versions and chat history using Cursor's local history and AI interaction database.
+A Python utility for recovering file history from the Cursor IDE's local storage. This tool helps you retrieve and organize previous versions of your code files.
 
----
+## Features ✨
 
-## 📦 Contents
+- 📂 Extracts file history from Cursor's SQLite database
+- 🔍 Project-specific file filtering
+- 📅 Timestamp-based version organization
+- 💾 Support for both main and backup databases
+- 🖥️ User-friendly GUI interface
 
-- `step_1.py` – Organize Cursor’s history snapshots by timestamp.
-- `step_2.py` – Extract large `composerData` blobs from Cursor's internal SQLite store.
-- `step_3.py` – Decode the largest AI interaction blob into readable JSON.
-- `step_4.py` – Extract your AI requests and a timeline from the decoded data.
+## Requirements 📋
 
----
+- Python 3.x
+- tkinter (usually comes with Python)
+- macOS (currently only supports Cursor's macOS file paths)
 
-## 🛠️ Requirements
+## Installation 🚀
 
-- Python 3.7+
-- [`msgpack`](https://pypi.org/project/msgpack/) (`pip install msgpack`)
-- Works on macOS (other platforms untested but may work if the paths are adjusted).
-
----
-
-## 🧭 Usage
-
-> It’s recommended to follow the steps in order.
-
-### 🧩 Step 1: Organize Cursor History Snapshots
-
+1. Clone this repository:
 ```bash
-python3 step_1.py
+git clone https://github.com/yourusername/cursor-recovery-tool.git
+cd cursor-recovery-tool
 ```
 
-This script scans the `~/Library/Application Support/Cursor/User/History/` folder and groups `entries.json` and source files into folders organized by timestamp. It helps you identify file versions that correspond to when your code was working correctly.
-
-**What to do next:**
-
-- Find the folder whose timestamp matches your last known good code.
-- Compare files with your current project.
-- Recover or merge as needed.
-- Repeat the process, working backwards to retrieve the last good version of each file.
----
-
-After running **Step 1**, you'll have your Cursor history neatly organized into timestamped folders for manual comparison.
-
-🕵️ **Don't remember the date/time of your last good save?**
-
-➡️ Run **Steps 2–4** to extract and inspect the AI conversation history. This will help you identify when your project started going awry and guide which timestamped folder to begin recovery from.
----
-
-### 🧪 Step 2: Extract Full AI Interaction Blob
-
+2. Make sure you have Python 3.x installed:
 ```bash
-python3 step_2.py
+python3 --version
 ```
 
-This script accesses the internal Cursor SQLite database (`state.vscdb`) and extracts **large** `composerData` blobs (over 2KB), including the **largest** AI interaction history.
+## Usage 💡
 
-Blobs are saved in:
-
-```
-~/CursorRecovery/Extracted/
-```
-
----
-
-### 🔍 Step 3: Decode Full Composer Blob
-
+1. Run the tool:
 ```bash
-python3 step_3.py
+python3 cursor_recovery_ui5.0.py
 ```
 
-Decodes the binary `full_composer_blob.bin` using MessagePack and extracts the full JSON representation of your AI conversations and interactions.
+2. In the GUI:
+   - Choose between main or backup database using the checkbox
+   - Click "Load Database" to load the conversation history
+   - (Optional) Enter a project name to filter specific files
+   - Click "Recover Files" to start the recovery process
 
-Outputs a single file:
+## File Locations 📍
 
-```
-full_composer_blob_decoded.json
-```
+- Default database: `~/Library/Application Support/Cursor/User/globalStorage/state.vscdb`
+- Backup database: `~/Library/Application Support/Cursor/User/globalStorage/state.vscdb.backup`
+- History folder: `~/Library/Application Support/Cursor/User/History/`
+- Recovery output: `~/CursorRecovered/final/`
 
----
+## How It Works 🔧
 
-### 🗃️ Step 4: Extract AI Request Timeline
+1. Extracts conversation history from Cursor's SQLite database
+2. Organizes file versions by timestamp
+3. Filters files by project name (if specified)
+4. Recovers the most recent version of each file up to the selected point in time
 
-```bash
-python3 step_4.py
-```
+## Notes 📝
 
-Scans the decoded blob to find your AI requests and presents them in timestamped order:
+- Always make sure to have backups of your important files
+- The tool works with Cursor's default macOS file locations
+- Recovered files are organized by timestamp in the output directory
 
-```
-ai_request_timeline.txt
-```
+## Contributing 🤝
 
-This helps you pinpoint when you introduced breaking changes, lost important files, or otherwise got off track.
+Feel free to submit issues, fork the repository, and create pull requests for any improvements.
 
----
+## License 📄
 
-## 🧼 Notes
-
-- Your original comments in the code are **always preserved**.
-- Only non-destructive operations are performed: history is **copied**, not altered.
-- If you're unsure when your project broke, just proceed through all the steps and check the timeline in Step 4.
-
----
-
-## 🤝 Contributing
-
-Suggestions welcome via Issues or PRs.
-
----
-
-## 📜 License
-
-MIT License — do what you want, but don’t blame us if something goes wrong!
+[MIT License](LICENSE)
