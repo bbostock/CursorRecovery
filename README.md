@@ -4,7 +4,7 @@ A Python utility for recovering file history from the Cursor IDE's local storage
 
 ## Features ✨
 
-- 📂 Extracts file history from Cursor's SQLite database
+- 📂 Extracts file history from Cursor's VSCode SQLite database
 - 🔍 Project-specific file filtering
 - 📅 Timestamp-based version organization
 - 💾 Support for both main and backup databases
@@ -15,6 +15,22 @@ A Python utility for recovering file history from the Cursor IDE's local storage
 - Python 3.x
 - tkinter (usually comes with Python)
 - macOS (currently only supports Cursor's macOS file paths)
+- May work on Windows but not tested. Check paths!
+
+### Required Python Libraries
+```bash
+pip3 install ttkwidgets    # Advanced widgets for tkinter
+```
+
+Most other required libraries are part of Python's standard library:
+- `os` - File and path operations
+- `json` - JSON data handling
+- `sqlite3` - Database operations
+- `tempfile` - Temporary file management
+- `shutil` - File operations
+- `tkinter` - GUI framework
+- `datetime` - Date and time handling
+- `subprocess` - Process management
 
 ## Installation 🚀
 
@@ -29,11 +45,16 @@ cd cursor-recovery-tool
 python3 --version
 ```
 
+3. Install required dependencies:
+```bash
+pip3 install -r requirements.txt
+```
+
 ## Usage 💡
 
 1. Run the tool:
 ```bash
-python3 cursor_recovery_ui5.0.py
+python3 cursor_recovery_ui.py
 ```
 
 2. In the GUI:
