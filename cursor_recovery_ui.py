@@ -2,6 +2,7 @@
 # Cursor Recovery Tool with proper history mapping and file recovery
 
 import os
+import sys
 import json
 import sqlite3
 import tempfile
@@ -13,12 +14,27 @@ from urllib.parse import urlparse, unquote
 import time
 import subprocess
 
-# Paths — Cursor user data on Windows: %APPDATA%\Cursor\User (…\Roaming\Cursor\User)
-_appdata = os.environ.get("APPDATA")
-if not _appdata:
-    _profile = os.environ.get("USERPROFILE") or os.path.expanduser("~")
-    _appdata = os.path.join(_profile, "AppData", "Roaming")
-CURSOR_USER_DIR = os.path.join(_appdata, "Cursor", "User")
+# Paths — Cursor user data: macOS ~/Library/.../Cursor/User; Windows %APPDATA%\Cursor\User
+if sys.platform == "darwin":
+    CURSOR_USER_DIR = os.path.join(
+        os.path.expanduser("~"),
+        "Library",
+        "Application Support",
+        "Cursor",
+        "User",
+    )
+elif sys.platform == "win32" or os.name == "nt":
+    _appdata = os.environ.get("APPDATA")
+    if not _appdata:
+        _profile = os.environ.get("USERPROFILE") or os.path.expanduser("~")
+        _appdata = os.path.join(_profile, "AppData", "Roaming")
+    CURSOR_USER_DIR = os.path.join(_appdata, "Cursor", "User")
+else:
+    raise RuntimeError(
+        "Cursor Recovery UI supports macOS and Windows only; "
+        f"unsupported platform sys.platform={sys.platform!r}."
+    )
+
 DB_PATH = os.path.join(CURSOR_USER_DIR, "globalStorage", "state.vscdb")
 DB_PATH_BACKUP = os.path.join(CURSOR_USER_DIR, "globalStorage", "state.vscdb.backup")
 WORKSPACE_STORAGE = os.path.join(CURSOR_USER_DIR, "workspaceStorage")
