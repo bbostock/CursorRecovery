@@ -4,8 +4,8 @@ A Python utility for recovering file history from the Cursor IDE's local storage
 
 ## Features ✨
 
-- 📂 Extracts file history from Cursor's VSCode SQLite database
-- 🔍 Project-specific file filtering
+- 📂 Extracts chat/agent history from Cursor's VSCode SQLite database
+- 🔍 Global & Project-specific file filtering
 - 📅 Timestamp-based version organization
 - 💾 Support for both main and backup databases
 - 🖥️ User-friendly GUI interface
@@ -14,8 +14,7 @@ A Python utility for recovering file history from the Cursor IDE's local storage
 
 - Python 3.x
 - tkinter (usually comes with Python)
-- macOS (currently only supports Cursor's macOS file paths)
-- May work on Windows but not tested. Check paths!
+- macOS or Windows (the tool will detect the OS and choose the appropriate file path)
 
 ### Required Python Libraries
 ```bash
